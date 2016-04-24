@@ -1,6 +1,6 @@
 # reptile server
 
-*** still updating ***
+***still updating***
 
 > this is a simple application with some simple HTML and python knowledge, in order to apply to some useful functions.
 
