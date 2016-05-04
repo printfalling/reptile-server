@@ -29,9 +29,10 @@ def send_mail(to_list, sub, content):
         print(str(e))
         return False
 
+if __name__ == '__main__':
 
-for i in range(100):  # 发送。。。
-    if send_mail(mailto_list, "meeting", "I am here to informed you to take the meeting at 2:00"):  # 邮件主题和邮件内容
-        print("done!" + " " + str(i))
-    else:
-        print("failed!")
+    for i in range(100):  # 发送。。。
+        if send_mail(mailto_list, "meeting", "I am here to informed you to take the meeting at 2:00"):  # 邮件主题和邮件内容
+            print("done!" + " " + str(i))
+        else:
+            print("failed!")

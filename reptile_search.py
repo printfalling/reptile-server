@@ -114,15 +114,30 @@ class MyRequestHandler(object):
         info_list = info_re.findall(str(temp_info_list))
         return info_list
 
+    def check_avalible(self, book_name, book_index):
+        search_soup = self.post_search(book_name)
+        url_list = list(set(self.get_item_url(search_soup)))
+        info_list = self.get_book_info(search_soup)
+        url_dict = {}
+        for book_info in info_list:
+            url_dict[book_info] = url_list[0]
+            del url_list[0]
+        find_soup = BeautifulSoup(get(url_dict[(str(book_name), str(book_index))]).text, 'lxml')
+        tag_list = find_soup.find_all('tr', {"align": "left", "class": "whitetext"})
+        for tag in tag_list:
 
-
-
-        pass
-
+            temp_soup = BeautifulSoup(str(tag), "lxml")
+            temp_list = temp_soup.find_all('td', {"width": "25%", "type": ""})
+            info = re.compile(r"<font color=\"green\">(.*?)</font></td>")
+            info_list = info.findall(str(tag_list))
+            if '可借' in info_list:
+                return True
+        return False
 
 if __name__ == '__main__':
     handler = MyRequestHandler()
     index_soup = handler.post_search('麦田里的守望者')
+    handler.check_avalible('麦田里的守望者', 'I712.45/198-2')
     # assert isinstance(index_soup, BeautifulSoup)
     # url_list = list(set(handler.get_item_url(index_soup)))
     # url_list += list(set(handler.search_page_num('python', index_soup)))
@@ -132,10 +147,8 @@ if __name__ == '__main__':
     # f = open('textfile.txt', 'w')
     # f.write(str(index_soup))
     # f.close()
-    info_list = handler.get_book_info(index_soup)
-    print(info_list[0])
-    f = open('test.txt', 'w')
-    f.write(str(info_list[0]))
-    f.close()
-
-
+    # info_list = handler.get_book_info(index_soup)
+    # print(info_list[0])
+    # f = open('test.txt', 'w')
+    # f.write(str(info_list[0]))
+    # f.close()

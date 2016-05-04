@@ -8,6 +8,7 @@ from tornado.concurrent import run_on_executor
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
 from tornado.web import RequestHandler, Application
+from test_email import send_mail
 
 from reptile_search import MyRequestHandler
 
@@ -71,7 +72,10 @@ class SetHandler(RequestHandler):
         exist = self.check_book_exist(book)
         if exist:
             book_list.append(book)
-            self.write("This book is surely exist!!")
+            self.write("This book is surely exist!!\n\r")
+            if MyRequestHandler().check_avalible(book.name, book.index):
+                self.write("This book is avaliable")
+
 
         else:
             self.write("This book is not exist...")
