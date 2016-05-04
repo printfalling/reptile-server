@@ -37,7 +37,7 @@ class MyRequestHandler(object):
             "historyCount": "1",
             "strText": str(book_name),
             "doctype": "ALL",
-            "displaypg": "20",
+            "displaypg": "200",
             "showmode": "list",
             "sort": "CATA_DATE",
             "orderby": "desc",
@@ -65,25 +65,77 @@ class MyRequestHandler(object):
     def get_page_num(self, search_soup):
         assert isinstance(search_soup, BeautifulSoup)
         num_list = search_soup.find_all(name='font', color="black")
-        print(str(num_list[0]))
-        page_num = re.compile('<font .*?>(\d)</font>').findall(str(num_list.pop()))
-        return page_num
+        if len(num_list) is not 0:
+            page_num = re.compile('<font .*?>(\d)</font>').findall(str(num_list.pop()))
+            return page_num
+        else:
+            return [1]
 
-    def search_page_num(self, page_num):
+    def search_page_num(self, title, my_soup):
         """
         <a class="blue" href="?location=ALL&amp;title=python&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&
         amp;displaypg=20&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;count=82&amp;
         with_ebook=&amp;page=2">下一页</a>
 
-        :param page_num:
+        :param title:
         :return:
         """
+        data = {
+            'location': 'ALL',
+            'title': str(title),
+            'doctype': 'ALL',
+            'lang_code': 'ALL',
+            'match_flag': 'forward',
+            'displaypg': '200',
+            'showmode': 'list',
+            'orderby': 'DESC',
+            'sort': 'CATA_DATE',
+            'onlylendable': 'no',
+            'count': '',
+            'with_ebook': '',
+            'page': '2',
+        }
+        url_list = []
+        num_list = self.get_page_num(my_soup)
+        num = num_list.pop()
+        print(num)
+        for i in range(2, int(num) + 1):
+            print(i)
+            data['page'] = str(i)
+            r = post(self.search_url, data=data)
+            search_soup = BeautifulSoup(r.text, "lxml")
+            url_list = url_list + self.get_item_url(search_soup)
+        return url_list
+
+    def get_book_info(self, search_soup):
+        info_list = []
+        info_re = re.compile(r'<h3><span>.+?</span><a href="item\.php\?marc_no=\d+">\d\.(.*?)</a>\s+(.*?)\s+</h3>')
+        temp_info_list = search_soup.find_all('h3')
+        info_list = info_re.findall(str(temp_info_list))
+        return info_list
+
+
+
+
+        pass
+
 
 if __name__ == '__main__':
     handler = MyRequestHandler()
-    index_soup = handler.post_search('python')
-    assert isinstance(index_soup, BeautifulSoup)
-    url_list = list(set(handler.get_page_num(index_soup)))
-    assert isinstance(url_list, list)
-    print(str(url_list).replace('\'', '\n'))
-    print(len(url_list))
+    index_soup = handler.post_search('麦田里的守望者')
+    # assert isinstance(index_soup, BeautifulSoup)
+    # url_list = list(set(handler.get_item_url(index_soup)))
+    # url_list += list(set(handler.search_page_num('python', index_soup)))
+    # assert isinstance(url_list, list)
+    # print(str(url_list).replace('\'', '\n'))
+    # print(len(url_list))
+    # f = open('textfile.txt', 'w')
+    # f.write(str(index_soup))
+    # f.close()
+    info_list = handler.get_book_info(index_soup)
+    print(info_list[0])
+    f = open('test.txt', 'w')
+    f.write(str(info_list[0]))
+    f.close()
+
+

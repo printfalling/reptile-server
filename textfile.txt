@@ -1,2 +1,307 @@
-this is a simple mail using for test.
-by printfall wang
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>中国科学技术大学图书馆v5.5书目检索系统 </title>
+<link href="../tpl/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../tpl/css/mylib.css" rel="stylesheet" type="text/css"/>
+<link href="../tpl/css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" type="text/css"/>
+<link href="../tpl/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="../tpl/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="../tpl/css/reader-info.css" rel="stylesheet" type="text/css"/>
+<script src="../tpl/js/jquery.1.7.1.min.js" type="text/javascript"></script>
+<script src="../tpl/js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script>
+<script src="../tpl/js/highlighter.js" type="text/javascript"></script>
+<script src="../tpl/js/raphael.2.1.0.min.js" type="text/javascript"></script>
+<script src="../tpl/js/justgage.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="header_opac">
+<h1 class="header_opac_img">
+<div class="header_opac_logo">
+    	中国科学技术大学图书馆书目检索系统<br/>
+<p>Online Public Access Catalogue</p>
+</div>
+</h1>
+<div class="header_right header_right_top">
+<p class="header_right_font"><a href="http://lib.ustc.edu.cn" target="_blank">图书馆主页</a> |        </p>
+<p class="header_right_font" style="margin-top:60px;">
+<a href="../opac/book_cart.php">暂存书架(<span id="bookcartCount">0</span>)</a> | <font color="blue"></font> <a href="../reader/login.php" style="color:#ff0000;">登录</a></p>
+</div>
+</div>
+<div id="menubar">
+<ul id="menu_top">
+<li><a class="menu_top_on" href="../opac/search.php" style="color:#6C5B23;" target="_self">书目检索</a></li>
+<li><a href="../top/top_lend.php" target="_self">热门推荐</a></li>
+<li><a href="../browse/cls_browsing.php" target="_self">分类浏览</a></li>
+<li><a href="../newbook/newbook_cls_browse.php" target="_self">新书通报</a></li>
+<li><a href="../peri/peri_nav_e.php" target="_self">期刊导航</a></li>
+<li><a href="../asord/asord_hist.php" target="_self">读者荐购</a></li>
+<li><a href="../shelf/curriculum_browse.php" target="_self">学科参考</a></li>
+<li><a href="../info/info_guide.php" target="_self">信息发布</a></li>
+<li><a href="../reader/redr_info.php" target="_self">我的图书馆</a></li>
+<div class="clear"></div>
+</ul>
+</div>
+<div id="submenu">
+<a href="../opac/search.php" target="_self">简单检索</a>
+<a href="../opac/search_adv.php" target="_self">全文检索</a>
+<a href="../opac/search_more.php" target="_self">多字段检索</a>
+<div class="clear"></div>
+</div>
+<style type="text/css">
+	.prompt {
+		position: relative;
+		border: 1px dot #EDD28B;
+		background: #FFFDEE;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+		border-radius: 1px;
+		padding: 9px;
+	}
+
+.tooltip s {
+margin-left: 2px;
+border: 4px dashed;
+border-color: #005A9D transparent transparent;
+border-top-style: solid;
+}
+.tooltip s, .tooltip i {
+display: inline-block;
+line-height: 0;
+font-size: 0;
+height: 0;
+overflow: hidden;
+vertical-align: middle;
+}
+	
+</style>
+<div id="mainbox">
+<div id="container">
+<div id="sidebar">
+<div class="left_content left_content_line">
+<h4>参考翻译</h4>
+<p><span id="dict"></span></p>
+</div>
+<div class="left_content left_content_line">
+<h4>缩小检索范围</h4>
+<dl class="s_l_list">
+<dd><b>分类：</b></dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;callno=I">文学</a>(4)</dd>
+</dl>
+<dl class="s_l_list">
+<dt><strong>文献类型： </strong></dt>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;doctype=01">中文图书</a>(6)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;doctype=02">西文图书</a>(1)</dd>
+</dl>
+<dl class="s_l_list">
+<dt><strong>馆藏地： </strong></dt>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00081">西区中文书库</a>(4)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00002">西区10楼中文社科书库[L]</a>(2)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00024">东区3楼中文科技书库</a>(2)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00040">少年班资料室</a>(2)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00025">南区2楼中文书库</a>(2)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00037">南区工具书阅览室</a>(1)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00001">西区1楼语言电子书库[L]</a>(1)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00206">东区社科图书借阅2室（I-K）</a>(1)</dd>
+<dd>·<a href="?title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;location=&amp;location=&amp;location=&amp;location=00004">西区12楼西文综合书库</a>(1)</dd>
+</dl>
+<dl class="s_l_list">
+<dt><strong>主题：</strong></dt>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=%E9%95%BF%E7%AF%87%E5%B0%8F%E8%AF%B4">长篇小说</a>(6)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=teenage+boys+in+literature">teenage boys in literature</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=salinger+j+d">salinger j d</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=%E7%BE%8E%E5%9B%BD">美国</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=caulfield+holden+fictitious+character">caulfield holden fictitious character</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=%E5%AF%B9%E7%85%A7%E8%AF%BB%E7%89%A9">对照读物</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=%E8%8B%B1%E4%B8%AD">英中</a>(1)</dd>
+<dd>·<a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=no&amp;with_ebook=&amp;hist_cont=hist&amp;subject=runaway+teenagers+in+literature">runaway teenagers in literature</a>(1)</dd>
+</dl>
+</div>
+</div>
+<div id="content">
+<div class="book_article">
+<div class="search_form bulk-actions">
+<p style="font-size:14px;">检索到 <strong class="red">7</strong> 条  题名=<font color="red">麦田里的守望者</font>  的结果
+                	   <a href="search_rss.php?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=yes&amp;with_ebook=&amp;with_ebook=" target="_blank"><img border="0" src="../tpl/images/rss.gif" title="此检索条件下的结果RSS源"/></a>
+</p>
+</div>
+<div class="search_form bulk-actions">
+<form action="openlink.php" id="f" method="get">
+<p><select class="option" name="s2_type" size="1">
+<option value="title">题  名</option>
+<option value="author">责任者</option>
+<option value="keyword">主题词</option>
+<option value="isbn">ISBN/ISSN</option>
+<option value="asordno">订购号</option>
+<option value="coden">分类号</option>
+<option value="callno">索书号</option>
+<option value="publisher">出版社</option>
+<option value="series">丛书名</option>
+<option value="tpinyin">题名拼音</option>
+<option value="apinyin">责任者拼音</option>
+</select> <input id="s2_text" maxlength="250" name="s2_text" style="width:330px;" type="text" value=""/>
+<input class="btn btn-primary" onclick="my_submit('result');" type="button" value="在结果中检索"/> <input class="btn btn-primary" onclick="my_submit('new');" type="button" value="重新检索"/>
+<input id="search_bar" name="search_bar" type="hidden" value="result"/>
+<input name="title" type="hidden" value="麦田里的守望者"/>
+<input name="doctype" type="hidden" value="ALL"/>
+<input name="with_ebook" type="hidden" value=""/>
+<input name="match_flag" type="hidden" value="forward"/>
+<input name="showmode" type="hidden" value="list"/>
+<input name="location" type="hidden" value="ALL"/>
+</p>
+</form></div>
+</div>
+<div class="book_article">
+<br/>
+</div>
+<div class="book_article">
+<p class="booktab_line">
+<span class="booktab_current"><a href="#">所有图书</a></span>
+<span class="booktab"><a href="?location=ALL&amp;title=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&amp;doctype=ALL&amp;lang_code=ALL&amp;match_flag=forward&amp;displaypg=200&amp;showmode=list&amp;orderby=DESC&amp;sort=CATA_DATE&amp;onlylendable=yes&amp;with_ebook=&amp;with_ebook=">可借图书</a></span>
+</p>
+<div id="num">
+<span class="pagination"></span>
+<div class="bulk-actions">
+<form action="openlink.php" method="get">
+<div class="num"><label for="sortField"> 按照：</label>
+<select name="sort">
+<option value="M_TITLE"> 题名</option>
+<option value="M_AUTHOR"> 责任者</option>
+<option value="M_CALL_NO"> 索书号 </option>
+<option value="M_PUBLISHER"> 出版社</option>
+<option value="M_PUB_YEAR"> 出版日期</option>
+<option selected="selected" value="CATA_DATE">入藏日期</option>
+</select>
+<select name="orderby">
+<option value="ASC">升序</option>
+<option selected="selected" value="DESC"> 降序</option>
+</select>
+<input class="btn btn-success" name="pailie" type="submit" value="排列"/>
+<input name="title" type="hidden" value="麦田里的守望者"/> <input name="doctype" type="hidden" value="ALL"/>
+<input name="match_flag" type="hidden" value="forward"/>
+<input name="showmode" type="hidden" value="list"/>
+<input name="with_ebook" type="hidden" value=""/>
+<input name="onlylendable" type="hidden" value=""/>
+<input name="location" type="hidden" value="ALL"/>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="book_article">
+<ol id="search_book_list">
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000242819">1.麦田里的守望者</a>     I712.45/198-2  </h3>
+<p> <span>馆藏复本：9 <br/>
+	                                          可借复本：6</span> (美)J.D.塞林格著 <br/>
+	            新疆大学出版社 2002 <br/>
+<img src="../tpl/images/star0.gif" title="总体评分及评价人数"/>(0) <a class="tooltip" href="item.php?marc_no=0000242819" onmouseout="hideDetail('0000242819')" onmouseover="showDetail('0000242819')">馆藏<s></s></a> </p>
+<div id="detail0000242819" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000644231">2.麦田里的守望者</a>     I712.45/198-3  </h3>
+<p> <span>馆藏复本：3 <br/>
+	                                          可借复本：1</span> (美国) J.D.塞林格著 <br/>
+	            译林出版社 2010 <br/>
+<img src="../tpl/images/star5.gif" title="总体评分及评价人数"/>(3) <a class="tooltip" href="item.php?marc_no=0000644231" onmouseout="hideDetail('0000644231')" onmouseover="showDetail('0000644231')">馆藏<s></s></a> </p>
+<div id="detail0000644231" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000189338">3.麦田里的守望者</a>     I712.45/198-1  </h3>
+<p> <span>馆藏复本：27 <br/>
+	                                          可借复本：16</span> (美)J.D.塞林格(J.D.Salinger)著 <br/>
+	            译林出版社 1997 <br/>
+<img src="../tpl/images/star5.gif" title="总体评分及评价人数"/>(1) <a class="tooltip" href="item.php?marc_no=0000189338" onmouseout="hideDetail('0000189338')" onmouseover="showDetail('0000189338')">馆藏<s></s></a> </p>
+<div id="detail0000189338" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>西文图书</span><a href="item.php?marc_no=0000400078">4.New essays on the Catcher in the Rye = 《麦田里的守望者》新论 /</a>     I712.074/N547  </h3>
+<p> <span>馆藏复本：3 <br/>
+	                                          可借复本：3</span> Jack Salzman编. <br/>
+	            Peking University Press, 2007. <br/>
+<img src="../tpl/images/star0.gif" title="总体评分及评价人数"/>(0) <a class="tooltip" href="item.php?marc_no=0000400078" onmouseout="hideDetail('0000400078')" onmouseover="showDetail('0000400078')">馆藏<s></s></a> </p>
+<div id="detail0000400078" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000112399">5.麦田里的守望者</a>     I712.45/198  </h3>
+<p> <span>馆藏复本：4 <br/>
+	                                          可借复本：2</span> (美)J.D.塞林格(J.D.Salinger)著 <br/>
+	            译林出版社 1997 <br/>
+<img src="../tpl/images/star0.gif" title="总体评分及评价人数"/>(0) <a class="tooltip" href="item.php?marc_no=0000112399" onmouseout="hideDetail('0000112399')" onmouseover="showDetail('0000112399')">馆藏<s></s></a> </p>
+<div id="detail0000112399" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000189402">6.麦田里的守望者</a>     47.6352/451-2  </h3>
+<p> <span>馆藏复本：1 <br/>
+	                                          可借复本：1</span> (美)J.D.塞林格著 <br/>
+	            译林出版社 1999 <br/>
+<img src="../tpl/images/star0.gif" title="总体评分及评价人数"/>(0) <a class="tooltip" href="item.php?marc_no=0000189402" onmouseout="hideDetail('0000189402')" onmouseover="showDetail('0000189402')">馆藏<s></s></a> </p>
+<div id="detail0000189402" style="display:none;">加载中...</div>
+</li>
+<li class="book_list_info">
+<h3><span>中文图书</span><a href="item.php?marc_no=0000205618">7.麦田里的守望者 :全译本</a>     47.6352/536  </h3>
+<p> <span>馆藏复本：2 <br/>
+	                                          可借复本：2</span> (美)杰罗姆.大卫.塞林格著 <br/>
+	            时代文艺出版社 2001 <br/>
+<img src="../tpl/images/star0.gif" title="总体评分及评价人数"/>(0) <a class="tooltip" href="item.php?marc_no=0000205618" onmouseout="hideDetail('0000205618')" onmouseover="showDetail('0000205618')">馆藏<s></s></a> </p>
+<div id="detail0000205618" style="display:none;">加载中...</div>
+</li>
+</ol>
+<div class="clear"></div>
+</div>
+<div class="book_article numstyle">
+<span class="num_prev"></span></div>
+<hr style=" background-color:green;size:2px;"/>
+<div class="clear"></div>
+</div>
+</div>
+<div class="go_top_r"><a href="javascript:;" onclick="javascript:scroll(0,0);"><img alt="返回顶部" src="../tpl/images/top.png" title="返回顶部"/></a></div>
+</div>
+<script type="text/javascript">
+<!--
+	$("#dict").load("ajax_dict.php?type=title&q=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85");
+	MarkHighLight(document.getElementById("content"),'麦田里的守望者');
+	
+	function showDetail(marcNo){
+		$("#detail" + marcNo).load("ajax_item.php?marc_no=" + marcNo);	
+		$("#detail" + marcNo).addClass("prompt");
+		$("#detail" + marcNo).show();
+	}
+	
+	function hideDetail(marcNo){
+		$("#detail" + marcNo).hide();
+	}
+	
+	function my_submit(search_type){
+	    var s_text = document.getElementById('s2_text').value;
+	    if(s_text.replace(/(\s*$)/g, "")==""){
+	        alert('请输入检索词');
+	        return;
+	    }
+	    document.getElementById('search_bar').value = search_type;
+	    document.forms.f.submit();
+    }
+
+	$("#ebook").load("ajax_ebook.php?total=&match=forward&type=title&q=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&start=1",
+			function(html){
+			   	MarkHighLight(document.getElementById("ebook"),'麦田里的守望者');
+			}
+		);
+		
+	var ebookpage = 1;	
+	function showEbook(page){
+		ebookpage = ebookpage + page;
+		$("#ebook").load("ajax_ebook.php?total=&match=forward&type=title&q=%E9%BA%A6%E7%94%B0%E9%87%8C%E7%9A%84%E5%AE%88%E6%9C%9B%E8%80%85&start=" + ebookpage,
+		   function(){
+		   	MarkHighLight(document.getElementById("ebook"),'麦田里的守望者');
+		   });
+	}
+	
+	if (document.documentElement.clientHeight < document.documentElement.offsetHeight - 6) {
+		$(".go_top_r").show();
+	}else{
+		$(".go_top_r").hide();
+	}
+	
+-->
+</script><div id="footer"><div id="copy"><p> 中国科学技术大学图书馆   OPAC v5.5.15.12.14    </p><p>© 1999-2015 <a href="http://www.libsys.com.cn" target="_blank">Jiangsu Huiwen Software Ltd. 江苏汇文软件有限公司</a></p></div></div></body></html>
