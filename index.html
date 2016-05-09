@@ -1,17 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Book searcher</title>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta name="author" content="Flux User">
+		<meta name="description" content="My Website">
+		<meta name="keywords" content="Flux, Mac">
+		<link href="main.css" rel="stylesheet" media="screen" type="text/css">
+		<title>My Webpage</title>
+	<style>
+
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	font-size:100%;
+	line-height:normal;
+	font-family:'normal Arial', Helvetica, sans-serif;
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#161712;
+	background-size:initial;
+}
+
+form, input, select, textarea {
+	color:#FFFFFF;
+	margin:0;
+	padding:0;
+}
+
+div.box {
+	width:500px;
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#222222;
+	background-size:initial;
+	position:relative;
+	top:50px;
+	border-image-source:initial;
+	border-image-slice:initial;
+	border-image-width:initial;
+	border-image-outset:initial;
+	border-image-repeat:initial;
+	border:1px solid #262626;
+	margin:0px auto 0px auto;
+}
+
+div.box h1 {
+	color:#FFF5CC;
+	font-size:18px;
+	text-transform:uppercase;
+	border-top:1px solid #161712;
+	border-bottom:1px solid #161712;
+	padding:5px 0px 5px 5px;
+}
+
+div.box label {
+	width:100%;
+	display:block;
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#1C1C1C;
+	background-size:initial;
+	border-top:1px solid #262626;
+	border-bottom:1px solid #161712;
+	padding:10px 0px 10px 0px;
+}
+
+div.box label span {
+	display:block;
+	color:#BBBBBB;
+	font-size:12px;
+	float:left;
+	width:100px;
+	text-align:right;
+	padding:5px 20px 0px 0px;
+}
+
+div.box .input_text {
+	width:200px;
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#262626;
+	background-size:initial;
+	border-left:1px double #333333;
+	border-right:1px double #333333;
+	border-top:1px double #171717;
+	border-bottom:1px double #171717;
+	padding:10px;
+}
+
+div.box .message {
+	width:350px;
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#262626;
+	background-size:initial;
+	overflow:hidden;
+	height:150px;
+	border-left:1px double #333333;
+	border-right:1px double #333333;
+	border-top:1px double #171717;
+	border-bottom:1px double #171717;
+	padding:7px;
+}
+
+div.box .button {
+	background-image:initial;
+	background-repeat-x:initial;
+	background-repeat-y:initial;
+	background-repeat:no-repeat;
+	background-attachment:initial;
+	background-position:initial initial;
+	background-position-x:initial;
+	background-position-y:initial;
+	background-origin:initial;
+	background-clip:initial;
+	background-color:#CC0000;
+	background-size:initial;
+	border-image-source:initial;
+	border-image-slice:initial;
+	border-image-width:initial;
+	border-image-outset:initial;
+	border-image-repeat:initial;
+	position:relative;
+	top:10px;
+	left:382px;
+	width:100px;
+	border-left:1px double #FF0033;
+	border-right:1px double #FF0033;
+	border-top:1px double #660000;
+	border-bottom:1px double #660000;
+	margin:0px 0px 10px 0px;
+	padding:4px 7px 4px 7px;
+}
+
+</style>
+<script type="text/javascript" src="Libraries/dojo-release-1.4.2/dojo/dojo.js" djconfig="parseOnLoad: true" >
+</script>
+
+<link rel="stylesheet" type="text/css" href="Libraries/dojo-release-1.4.2/dijit/themes/nihilo/nihilo.css" >
 </head>
-<body>
-<h1>Enter terms below.</h1>
-<form method="post" action="/set">
-    <p>your e-mail:<br><input type="text" name="mail"></p>
-    <p>Name of the book:<br><input type="text" name="book_name"></p>
-    <p>The index of the book on lib:<br><input type="text" name="index"></p>
-    <p>Whether to begin the reminder?(y/n):<br><input type="text" name="is_on"></p>
-    <input type="submit">
-</form>
+	<body>
+	<form action="./" method="post"  style="left:231px;top:242px">
+           	<div class="box" >
+             		<h1>Book Search</h1>
+             		<label>
+                <span style="left:-115px;top:-2px">Your E-mail *</span>                			<input type="text" class="input_text" name="name" id="name" />
+             		</label>
+              		<label>
+                <span style="top:-2px">Full name of the book *</span>                			<input type="text" class="input_text" name="email" id="email" />
+             		</label>
+              		<label>
+                 <span style="left:-49px;top:1px">Index of the book *</span>                 			<input type="text" class="input_text" name="subject" id="subject" / style="left:0px;top:-1px">
+             		</label>
+             		<label>
+                 <span style="left:-102px;top:0px">Begin the reminder?(y/n)*</span>                 			<textarea class="message" name="feedback" id="feedback"  >
+			</textarea>
+                  			<a href="" target="" name=""  style="left:0px;top:-1px"><input type="submit" class="button" value="Submit Form" / style="height:35px;left:118px;top:15px;width:105px;padding-left:0px"></a>
+                           		
+</label>
+         	</div>
+     </form>
 </body>
 </html>
