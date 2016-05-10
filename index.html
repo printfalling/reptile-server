@@ -127,7 +127,7 @@ div.box .input_text {
 }
 
 div.box .message {
-	width:350px;
+	width:200px;
 	background-image:initial;
 	background-repeat-x:initial;
 	background-repeat-y:initial;
@@ -186,21 +186,21 @@ div.box .button {
 <link rel="stylesheet" type="text/css" href="Libraries/dojo-release-1.4.2/dijit/themes/nihilo/nihilo.css" >
 </head>
 	<body>
-	<form action="./" method="post"  style="left:231px;top:242px">
+	<form action="/set" method="post"  style="left:231px;top:242px">
            	<div class="box" >
              		<h1>Book Search</h1>
              		<label>
-                <span style="left:-115px;top:-2px">Your E-mail *</span>                			<input type="text" class="input_text" name="name" id="name" />
+                <span style="left:-115px;top:-2px">Your E-mail *</span>                			<input type="text" class="input_text" name="mail" id="mail" />
              		</label>
               		<label>
-                <span style="top:-2px">Full name of the book *</span>                			<input type="text" class="input_text" name="email" id="email" />
+                <span style="top:-2px">Full name of the book *</span>                			<input type="text" class="input_text" name="book_name" id="book_name" />
              		</label>
               		<label>
-                 <span style="left:-49px;top:1px">Index of the book *</span>                 			<input type="text" class="input_text" name="subject" id="subject" / style="left:0px;top:-1px">
+                 <span style="left:-49px;top:1px">Index of the book *</span>                 			<input type="text" class="input_text" name="index" id="index" / style="left:0px;top:-1px">
              		</label>
              		<label>
-                 <span style="left:-102px;top:0px">Begin the reminder?(y/n)*</span>                 			<textarea class="message" name="feedback" id="feedback"  >
-			</textarea>
+                 <span style="left:-102px;top:0px">Begin the reminder?(y/n)*</span>                 			<imput type="text" name="is_on" class="input_text" id="is_on"  >
+			</imput>
                   			<a href="" target="" name=""  style="left:0px;top:-1px"><input type="submit" class="button" value="Submit Form" / style="height:35px;left:118px;top:15px;width:105px;padding-left:0px"></a>
                            		
 </label>
